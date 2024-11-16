@@ -18,12 +18,16 @@
  */
 function insertionSort(nums) {
   for (let i = 1; i < nums.length; i++) {
-    for (let j = i; j > 0; j--) {
-      if (nums[j] >= nums[j-1]) break;
-      const tmp = nums[j];
+    const numberToInsert = nums[i];
+    let j = i;
+
+    while (j > 0) {
+      if (numberToInsert >= nums[j-1]) break;
       nums[j] = nums[j-1];
-      nums[j-1] = tmp;
+      j--;
     }
+
+    nums[j] = numberToInsert;
   }
 }
 
