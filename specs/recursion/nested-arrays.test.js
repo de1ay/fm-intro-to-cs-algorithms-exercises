@@ -13,14 +13,13 @@
  * @returns {Number}
  */
 function nestedAdd(val) {
-  if(Array.isArray(val)) {
-    /** type {Number} */
+  if (Array.isArray(val)) {
     let sum = 0;
     for (let i = 0; i < val.length; i++) {
       sum += nestedAdd(val[i]);
     }
     return sum;
-  } else if(typeof val === "number") {
+  } else if (typeof val === "number") {
     return val;
   }
   return 0;
