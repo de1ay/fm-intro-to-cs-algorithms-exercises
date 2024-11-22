@@ -9,13 +9,70 @@
 
 */
 
+/**
+ * @param {Array<Number>} array
+ * @returns {Number}
+ */
+function getMaxDigitIndex(array) {
+  let maxNum = 0;
+  for (const num of array) {
+    if (num > maxNum) {
+      maxNum = num;
+    }
+  }
+
+  return maxNum.toString().length - 1;
+}
+
+/**
+ * @param {Number} num
+ * @param {Number} index
+ * @returns {Number}
+ */
+function getDigitByIndex(num, index) {
+  const numStr = num.toString();
+
+  if (index >= numStr.length) {
+    return 0;
+  }
+
+  return Number(numStr[numStr.length - index - 1]);
+}
+
+/**
+ * @param {Array<Number>} array
+ * @returns {Array<Number>}
+ */
 function radixSort(array) {
-  // code goes here
+  let buckets = [];
+  for (let i = 0; i < 10; i++) {
+    buckets.push([]);
+  }
+
+  const maxDigitIndex = getMaxDigitIndex(array);
+  for (let i = 0; i <= maxDigitIndex; i++) {
+    for (const num of array) {
+      const digit = getDigitByIndex(num, i);
+      buckets[digit].push(num);
+    }
+
+    let insertIndex = 0;
+    for (const bucket of buckets) {
+      for (const num of bucket) {
+        array[insertIndex] = num;
+        insertIndex++;
+      }
+    }
+
+    buckets = buckets.map(() => []);
+  }
+
+  return array;
 }
 
 // unit tests
 // do not modify the below code
-describe.skip("radix sort", function () {
+describe("radix sort", function() {
   it("should sort correctly", () => {
     const nums = [
       20,
