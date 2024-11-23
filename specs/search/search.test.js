@@ -3,17 +3,52 @@
 //
 // it's up to you what to return if the object isn't found (we're not testing that)
 
+/**
+ * @typedef {Object} NameObject
+ * @property {Number} id
+ * @property {string} name
+ */
+
+/**
+ * @param {Number} id
+ * @param {Array<NameObject>} array
+ * @returns {NameObject | null}
+ */
 function linearSearch(id, array) {
-  // code goes here
+  for (let val of array) {
+    if (val.id === id) return val;
+  }
+
+  return null;
 }
 
+/**
+ * @param {Number} id
+ * @param {Array<NameObject>} array
+ * @returns {NameObject | null}
+ */
 function binarySearch(id, array) {
-  // code goes here
+  let left = 0;
+  let right = array.length - 1;
+
+  while (left <= right) {
+    const middle = Math.floor((right + left) / 2);
+
+    if (array[middle].id === id) {
+      return array[middle];
+    } else if (array[middle].id < id) {
+      left = middle + 1;
+    } else {
+      right = middle - 1;
+    }
+  }
+
+  return null;
 }
 
 // unit tests
 // do not modify the below code
-test.skip("linear search", function () {
+test("linear search", function() {
   const lookingFor = { id: 5, name: "Brian" };
   expect(
     linearSearch(5, [
@@ -35,7 +70,7 @@ test.skip("linear search", function () {
   ).toBe(lookingFor);
 });
 
-test.skip("binary search", function () {
+test("binary search", function() {
   const lookingFor = { id: 23, name: "Brian" };
   expect(
     binarySearch(23, [
